@@ -84,48 +84,14 @@ event_status handle_state_tres(obj_msg_t *obj, event_t *ee)
         Serial.printf("Hola %s\n ", obj->msg);
         return event_realizado;
         break;
-
-        // switch (ee->state)
-        // {
-        // case TRES_UNO:
-
-        //     obj->msg = "TRES_UNO";
-
-        //     switch (ee->state)
-        //     {
-        //     case ENTRY:
-        //         Serial.printf("Hola %s\n", obj->msg);
-        //         break;
-
-        //     case A:
-        //         Serial.printf("Hola Caso A %s\n", obj->msg);
-        //         break;
-
-        //     case EXIT:
-        //         Serial.printf("Adios %s\n", obj->msg);
-        //         break;
-        //     }
-        //     break;
-
-        // case TRES_DOS:
-        //     obj->msg = "TRES_DOS";
-        //     switch (ee->state)
-        //     {
-        //     case ENTRY:
-        //         Serial.printf("Hola %s\n", obj->msg);
-        //         break;
-
-        //     case A:
-        //         Serial.printf("Hola Caso A %s\n", obj->msg);
-        //         break;
-
-        //     case EXIT:
-        //         Serial.printf("Adios %s\n", obj->msg);
-        //         break;
-        //     }
-        // }
-
-        // break;
+    case B:
+        obj->activate_state = DOS;
+        return transicion_evento;
+        break;
+    case C:
+        obj->activate_state = START;
+        return transicion_evento;
+        break;
 
     case EXIT:
         Serial.printf("Adios %s\n", obj->msg);
