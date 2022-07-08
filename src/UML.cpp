@@ -84,13 +84,19 @@ event_status handle_state_tres(obj_msg_t *obj, event_t *ee)
         Serial.printf("Hola %s\n ", obj->msg);
         return event_realizado;
         break;
+
+    case A:
+        obj->activate_state = START;
+        return transicion_evento;
+        break;
+
     case B:
         obj->activate_state = DOS;
         return transicion_evento;
         break;
     case C:
-        obj->activate_state = START;
-        return transicion_evento;
+        Serial.println("Función de C ejecuada");
+        return event_realizado;
         break;
 
     case EXIT:
