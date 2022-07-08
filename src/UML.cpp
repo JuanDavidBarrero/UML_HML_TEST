@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include "UML.h"
 
-
 void init_state(obj_msg_t *obj)
 {
     event_t ee;
@@ -69,6 +68,8 @@ event_status handle_state_dos(obj_msg_t *obj, event_t *ee)
         return transicion_evento;
     case EXIT:
         Serial.printf("Adios %s\n", obj->msg);
+        obj->levelState.nombre = TRES_UNO;
+        obj->levelState.level = PARENT;
         return event_realizado;
         break;
     }
@@ -77,31 +78,102 @@ event_status handle_state_dos(obj_msg_t *obj, event_t *ee)
 
 event_status handle_state_tres(obj_msg_t *obj, event_t *ee)
 {
+
     switch (ee->state)
     {
     case ENTRY:
-        obj->msg = "TRES";
-        ee->state = TRES_UNO;
-        Serial.printf("Hola %s\n", obj->msg);
-        return event_realizado;
+        if (obj->levelState.level == PARENT)
+        {
+            obj->msg = "TRES PADRE";
+            Serial.printf("Hola %s\n", obj->msg);
+        }
+
         break;
 
-    case A:
-        obj->activate_state = START;
-        return transicion_evento;
-        break;
-
-    case B:
-        obj->activate_state = DOS;
-        return transicion_evento;
-        break;
     case C:
-        Serial.println("Función de C ejecuada");
-        return event_realizado;
+        obj->activate_state = START;
+        obj->levelState.level = PARENT;
+        return transicion_evento;
         break;
 
     case EXIT:
-        Serial.printf("Adios %s\n", obj->msg);
+        if (obj->levelState.level == PARENT)
+        {
+            obj->msg = "TRES PADRE";
+            Serial.printf("Adios %s\n", obj->msg);
+            break;
+        }
+    }
+
+    //   ##############  ACA esta el estado hijo #############################
+
+    // Serial.printf("El valor de level es %i\n", obj->levelState.level);
+    obj->levelState.level = SON;
+    if (obj->levelState.level == SON)
+    {
+        switch (obj->levelState.nombre)
+        {
+        case TRES_UNO:
+            return handle_state_tres_uno(obj, ee);
+            break;
+
+        case TRES_DOS:
+            return handle_state_tres_dos(obj, ee);
+            break;
+        }
+    }
+
+    //   ##############  ACA esta el estado hijo #############################
+
+    return evento_ignorad;
+}
+
+event_status handle_state_tres_uno(obj_msg_t *obj, event_t *ee)
+{
+    switch (ee->state)
+    {
+    case ENTRY:
+        obj->msg = "TRES UNO";
+        Serial.printf("Hola %s\n", obj->msg);
+        return event_realizado;
+        break;
+    case A:
+        obj->activate_state = TRES;
+        obj->levelState.nombre = TRES_DOS;
+        return transicion_evento;
+        break;
+    case B:
+        Serial.println("Evento en tres UNO B");
+        event_realizado;
+        break;
+    case EXIT:
+        Serial.printf("adios %s\n", obj->msg);
+        return event_realizado;
+        break;
+    }
+    return evento_ignorad;
+}
+
+event_status handle_state_tres_dos(obj_msg_t *obj, event_t *ee)
+{
+    switch (ee->state)
+    {
+    case ENTRY:
+        obj->msg = "TRES DOS";
+        Serial.printf("Hola %s\n", obj->msg);
+        return event_realizado;
+        break;
+    case A:
+        Serial.println("Evento en tres DOS A");
+        event_realizado;
+        break;
+    case B:
+        obj->activate_state = TRES;
+        obj->levelState.nombre = TRES_UNO;
+        return transicion_evento;
+        break;
+    case EXIT:
+        Serial.printf("adios %s\n", obj->msg);
         return event_realizado;
         break;
     }

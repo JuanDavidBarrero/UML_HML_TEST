@@ -35,7 +35,7 @@ void loop()
 void handle_machine_state(obj_msg_t *obj, event_t *e)
 {
   event_status status;
-  estados_t source, target;
+  estados_names_t source, target;
    
 
   source = obj->activate_state;
