@@ -81,7 +81,7 @@ event_status handle_state_tres(obj_msg_t *obj, event_t *ee)
     case ENTRY:
         obj->msg = "TRES";
         ee->state = TRES_UNO;
-        Serial.printf("Hola %s\n ", obj->msg);
+        Serial.printf("Hola %s\n", obj->msg);
         return event_realizado;
         break;
 
