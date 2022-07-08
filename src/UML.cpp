@@ -43,8 +43,11 @@ event_status handle_state_start(obj_msg_t *obj, event_t *ee)
     case A:
         obj->activate_state = DOS;
         return transicion_evento;
+    case C:
+        Serial.println("Evento realizaso en START C");
+        return event_realizado;
     case EXIT:
-        Serial.printf("Adios %s\n", obj->msg);
+        Serial.printf("Adios %s\n\n", obj->msg);
         return event_realizado;
         break;
     }
@@ -66,8 +69,11 @@ event_status handle_state_dos(obj_msg_t *obj, event_t *ee)
     case B:
         obj->activate_state = START;
         return transicion_evento;
+    case C:
+        Serial.println("Evento realizaso en DOS por C");
+        return event_realizado;
     case EXIT:
-        Serial.printf("Adios %s\n", obj->msg);
+        Serial.printf("Adios %s\n\n", obj->msg);
         obj->levelState.nombre = TRES_UNO;
         obj->levelState.level = PARENT;
         return event_realizado;
@@ -100,7 +106,7 @@ event_status handle_state_tres(obj_msg_t *obj, event_t *ee)
         if (obj->levelState.level == PARENT)
         {
             obj->msg = "TRES PADRE";
-            Serial.printf("Adios %s\n", obj->msg);
+            Serial.printf("Adios %s\n\n", obj->msg);
             break;
         }
     }
@@ -147,7 +153,7 @@ event_status handle_state_tres_uno(obj_msg_t *obj, event_t *ee)
         event_realizado;
         break;
     case EXIT:
-        Serial.printf("adios %s\n", obj->msg);
+        Serial.printf("adios %s\n\n", obj->msg);
         return event_realizado;
         break;
     }
@@ -173,7 +179,7 @@ event_status handle_state_tres_dos(obj_msg_t *obj, event_t *ee)
         return transicion_evento;
         break;
     case EXIT:
-        Serial.printf("adios %s\n", obj->msg);
+        Serial.printf("adios %s\n\n", obj->msg);
         return event_realizado;
         break;
     }
