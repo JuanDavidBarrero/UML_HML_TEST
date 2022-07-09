@@ -28,7 +28,7 @@ typedef struct{
 // Definir las señales principales
 typedef enum
 {
-    A = 1,
+    A = 97,
     B,
     C,
     ENTRY,
