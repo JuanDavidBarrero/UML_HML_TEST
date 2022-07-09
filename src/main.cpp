@@ -24,30 +24,39 @@ void loop()
 
     event = Serial.read();
 
-      event_t e;
-      e.state = (char)event;
+    event_t e;
+    e.state = (char)event;
 
-     handle_machine_state(&mensaje_prueba, &e);
-     e.state = 0;
+    handle_machine_state(&mensaje_prueba, &e);
+    e.state = 0;
   }
 }
 
 void handle_machine_state(obj_msg_t *obj, event_t *e)
 {
   event_status status;
+  hierarchical_t statusSon;
   estados_names_t source, target;
 
   source = obj->activate_state;
   status = State_machine(obj, e);
+  statusSon = obj->levelState.level;
 
   if (status == transicion_evento)
   {
-    target = obj->activate_state;
+    target = obj->activate_state; // aca debe ir start
     event_t ee;
 
     ee.state = EXIT;
     obj->activate_state = source;
     State_machine(obj, &ee);
+
+    if (statusSon == SON_EXIT)
+    {
+      ee.state = EXIT;
+      obj->activate_state = source;
+      State_machine(obj, &ee);
+    }
 
     ee.state = ENTRY;
     obj->activate_state = target;

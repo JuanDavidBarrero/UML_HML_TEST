@@ -16,7 +16,8 @@ typedef enum
 //******* Agreados ******
 typedef enum{
     PARENT,
-    SON
+    SON,
+    SON_EXIT,
 } hierarchical_t; 
 
 typedef struct{
