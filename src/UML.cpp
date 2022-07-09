@@ -113,9 +113,8 @@ event_status handle_state_tres(obj_msg_t *obj, event_t *ee)
         }
     }
 
-    //   ##############  ACA esta el estado hijo #############################
+    //
 
-    // Serial.printf("El valor de level es %i\n", obj->levelState.level);
 
     if (obj->levelState.level == SON || obj->levelState.level == SON_EXIT)
     {
@@ -131,7 +130,7 @@ event_status handle_state_tres(obj_msg_t *obj, event_t *ee)
         }
     }
 
-    //   ##############  ACA esta el estado hijo #############################
+ 
 
     return evento_ignorad;
 }

@@ -12,7 +12,6 @@ typedef enum
 } estados_names_t;
 
 
-
 //******* Agreados ******
 typedef enum{
     PARENT,
@@ -62,10 +61,8 @@ event_status State_machine(obj_msg_t *obj, event_t *ee);
 event_status handle_state_start(obj_msg_t *obj, event_t *ee);
 event_status handle_state_dos(obj_msg_t *obj, event_t *ee);
 event_status handle_state_tres(obj_msg_t *obj, event_t *ee);
-// ################# funciones agragadas ####################### 
 event_status handle_state_tres_uno(obj_msg_t *obj, event_t *ee);
 event_status handle_state_tres_dos(obj_msg_t *obj, event_t *ee);
-// ################# funciones agragadas ####################### 
 
 
 #endif

@@ -44,7 +44,7 @@ void handle_machine_state(obj_msg_t *obj, event_t *e)
 
   if (status == transicion_evento)
   {
-    target = obj->activate_state; // aca debe ir start
+    target = obj->activate_state; 
     event_t ee;
 
     ee.state = EXIT;
