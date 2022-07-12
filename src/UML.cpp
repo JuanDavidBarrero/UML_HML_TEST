@@ -113,8 +113,19 @@ event_status handle_state_tres(obj_msg_t *obj, event_t *ee)
         }
     }
 
-    //
-
+ 
+//  ________  ______   __       __        __    __  ______     _____   ______    ______  
+// /        |/      \ /  \     /  |      /  |  /  |/      |   /     | /      \  /      \ 
+// $$$$$$$$//$$$$$$  |$$  \   /$$ |      $$ |  $$ |$$$$$$/    $$$$$ |/$$$$$$  |/$$$$$$  |
+// $$ |__   $$ \__$$/ $$$  \ /$$$ |      $$ |__$$ |  $$ |        $$ |$$ |  $$ |$$ \__$$/ 
+// $$    |  $$      \ $$$$  /$$$$ |      $$    $$ |  $$ |   __   $$ |$$ |  $$ |$$      \ 
+// $$$$$/    $$$$$$  |$$ $$ $$/$$ |      $$$$$$$$ |  $$ |  /  |  $$ |$$ |  $$ | $$$$$$  |
+// $$ |     /  \__$$ |$$ |$$$/ $$ |      $$ |  $$ | _$$ |_ $$ \__$$ |$$ \__$$ |/  \__$$ |
+// $$ |     $$    $$/ $$ | $/  $$ |      $$ |  $$ |/ $$   |$$    $$/ $$    $$/ $$    $$/ 
+// $$/       $$$$$$/  $$/      $$/       $$/   $$/ $$$$$$/  $$$$$$/   $$$$$$/   $$$$$$/  
+                                                                                      
+                                                                                      
+                                                                                      
 
     if (obj->levelState.level == SON || obj->levelState.level == SON_EXIT)
     {
@@ -159,7 +170,7 @@ event_status handle_state_tres_uno(obj_msg_t *obj, event_t *ee)
             obj->activate_state = TRES;
             obj->levelState.level = PARENT;
         }
-        Serial.printf("adios %s\n\n", obj->msg);
+        Serial.printf("adios este es el tres uno %s\n\n", obj->msg);
         return event_realizado;
         break;
     }
