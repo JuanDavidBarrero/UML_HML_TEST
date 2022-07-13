@@ -6,11 +6,13 @@ typedef enum
 {
     START,
     DOS,
-    TRES,
-    TRES_UNO,
-    TRES_DOS,
+    TRES
 } estados_names_t;
 
+typedef enum {
+    TRES_UNO,
+    TRES_DOS
+} estados_son_names_t;
 
 //******* Agreados ******
 typedef enum{
@@ -19,11 +21,6 @@ typedef enum{
     SON_EXIT,
 } hierarchical_t; 
 
-typedef struct{
-    estados_names_t nombre;
-    hierarchical_t level;
-} states_level_t;
-//******* Agreados ******
 
 // Definir las señales principales
 typedef enum
@@ -39,7 +36,8 @@ typedef enum
 typedef struct
 {
     String msg;
-    states_level_t levelState;
+    estados_son_names_t activate_state_son;
+    hierarchical_t level;
     estados_names_t activate_state;
 } obj_msg_t;
 

@@ -74,8 +74,8 @@ event_status handle_state_dos(obj_msg_t *obj, event_t *ee)
         return event_realizado;
     case EXIT:
         Serial.printf("Adios %s\n\n", obj->msg);
-        obj->levelState.nombre = TRES_UNO;
-        obj->levelState.level = PARENT;
+        obj->activate_state_son = TRES_UNO;
+        obj->level = PARENT;
         return event_realizado;
         break;
     }
@@ -88,23 +88,23 @@ event_status handle_state_tres(obj_msg_t *obj, event_t *ee)
     switch (ee->state)
     {
     case ENTRY:
-        if (obj->levelState.level == PARENT)
+        if (obj->level == PARENT)
         {
             obj->msg = "TRES PADRE";
             Serial.printf("Hola %s\n", obj->msg);
-            obj->levelState.level = SON;
+            obj->level = SON;
         }
 
         break;
 
     case C:
         obj->activate_state = START;
-        obj->levelState.level = SON_EXIT;
+        obj->level = SON_EXIT;
         return transicion_evento;
         break;
 
     case EXIT:
-        if (obj->levelState.level == PARENT)
+        if (obj->level == PARENT)
         {
             obj->msg = "TRES PADRE";
             Serial.printf("Adios %s\n\n", obj->msg);
@@ -114,9 +114,9 @@ event_status handle_state_tres(obj_msg_t *obj, event_t *ee)
     }
 
 
-    if (obj->levelState.level == SON || obj->levelState.level == SON_EXIT)
+    if (obj->level == SON || obj->level == SON_EXIT)
     {
-        switch (obj->levelState.nombre)
+        switch (obj->activate_state_son)
         {
         case TRES_UNO:
             return handle_state_tres_uno(obj, ee);
@@ -144,7 +144,7 @@ event_status handle_state_tres_uno(obj_msg_t *obj, event_t *ee)
         break;
     case A:
         obj->activate_state = TRES;
-        obj->levelState.nombre = TRES_DOS;
+        obj->activate_state_son = TRES_DOS;
         return transicion_evento_hijo;
         break;
     case B:
@@ -152,10 +152,10 @@ event_status handle_state_tres_uno(obj_msg_t *obj, event_t *ee)
         event_realizado;
         break;
     case EXIT:
-        if (obj->levelState.level == SON_EXIT)
+        if (obj->level == SON_EXIT)
         {
             obj->activate_state = TRES;
-            obj->levelState.level = PARENT;
+            obj->level = PARENT;
         }
         Serial.printf("adios este es el tres uno %s\n\n", obj->msg);
         return event_realizado;
@@ -179,14 +179,14 @@ event_status handle_state_tres_dos(obj_msg_t *obj, event_t *ee)
         break;
     case B:
         obj->activate_state = TRES;
-        obj->levelState.nombre = TRES_UNO;
+        obj->activate_state_son = TRES_UNO;
         return transicion_evento_hijo;
         break;
     case EXIT:
-        if (obj->levelState.level == SON_EXIT)
+        if (obj->level == SON_EXIT)
         {
             obj->activate_state = TRES;
-            obj->levelState.level = PARENT;
+            obj->level = PARENT;
         }
         Serial.printf("adios Este es el adios de tres dos %s\n\n", obj->msg);
         return event_realizado;
